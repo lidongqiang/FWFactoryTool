@@ -1,0 +1,10 @@
+; testDll.def : Declares the module parameters for the DLL.
+
+LIBRARY      "testDll"
+
+EXPORTS
+    SetMsgHandle
+	SetWindowLanguage
+	GetTabTitle
+	CreateChildWindow
+	DestroyChildWindow

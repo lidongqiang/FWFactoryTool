@@ -1,0 +1,52 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: testDll - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x804 /fo"Debug/testDll.res" /d "_DEBUG" /d "_AFXDLL" "D:\Software\workspace\factoty_new\FirmwarePlatformTool\testDll\testDll.rc"" 
+Creating temporary file "C:\Users\ywj\AppData\Local\Temp\RSP4DC7.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I "cxImage\debug\inc" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_USRDLL" /D "_AFXDLL" /D "_MBCS" /D "FWPLUGIN_EXPORTS" /D "_UNICODE" /D "UNICODE" /FR"Debug/" /Fp"Debug/testDll.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\Software\workspace\factoty_new\FirmwarePlatformTool\testDll\testDll.cpp"
+"D:\Software\workspace\factoty_new\FirmwarePlatformTool\testDll\TestPluginRangeDlg.cpp"
+]
+Creating command line "cl.exe @C:\Users\ywj\AppData\Local\Temp\RSP4DC7.tmp" 
+Creating temporary file "C:\Users\ywj\AppData\Local\Temp\RSP4DC8.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /I "cxImage\debug\inc" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_USRDLL" /D "_AFXDLL" /D "_MBCS" /D "FWPLUGIN_EXPORTS" /D "_UNICODE" /D "UNICODE" /FR"Debug/" /Fp"Debug/testDll.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\Software\workspace\factoty_new\FirmwarePlatformTool\testDll\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\Users\ywj\AppData\Local\Temp\RSP4DC8.tmp" 
+Creating temporary file "C:\Users\ywj\AppData\Local\Temp\RSP4DD8.tmp" with contents
+[
+/nologo /subsystem:windows /dll /incremental:yes /pdb:"D:\Software\workspace\factoty_new\FirmwarePlatformTool\bin\Plugin/testDll.pdb" /debug /machine:I386 /def:".\testDll.def" /out:"D:\Software\workspace\factoty_new\FirmwarePlatformTool\bin\Plugin/testDll.dll" /implib:"D:\Software\workspace\factoty_new\FirmwarePlatformTool\bin\Plugin/testDll.lib" /pdbtype:sept /libpath:"cxImage\debug\lib" 
+.\Debug\StdAfx.obj
+.\Debug\testDll.obj
+.\Debug\TestPluginRangeDlg.obj
+.\Debug\testDll.res
+]
+Creating command line "link.exe @C:\Users\ywj\AppData\Local\Temp\RSP4DD8.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+testDll.cpp
+TestPluginRangeDlg.cpp
+Generating Code...
+Linking...
+   Creating library D:\Software\workspace\factoty_new\FirmwarePlatformTool\bin\Plugin/testDll.lib and object D:\Software\workspace\factoty_new\FirmwarePlatformTool\bin\Plugin/testDll.exp
+Creating command line "bscmake.exe /nologo /o"D:\Software\workspace\factoty_new\FirmwarePlatformTool\bin\Plugin/testDll.bsc"  .\Debug\StdAfx.sbr .\Debug\testDll.sbr .\Debug\TestPluginRangeDlg.sbr"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+testDll.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
