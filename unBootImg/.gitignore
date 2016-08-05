@@ -1,9 +1,0 @@
-*.ncb
-*.aps
-*.suo
-*.vcproj.*
-Debug
-Release/
-bin/Log/
-bin/Record/
-
