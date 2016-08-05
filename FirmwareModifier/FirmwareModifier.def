@@ -1,0 +1,10 @@
+; FirmwareModifier.def : Declares the module parameters for the DLL.
+
+LIBRARY      "FirmwareModifier"
+
+EXPORTS
+    SetMsgHandle
+	SetWindowLanguage
+	GetTabTitle
+	CreateChildWindow
+	DestroyChildWindow

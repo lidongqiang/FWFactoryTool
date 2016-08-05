@@ -1,0 +1,444 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\FirmwareModifier.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""l.chs\\afxres.rc""          // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,2
+ PRODUCTVERSION 1,0,0,2
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "FirmwareModifier DLL\0"
+            VALUE "FileVersion", "1, 0, 0, 2\0"
+            VALUE "InternalName", "FirmwareModifier\0"
+            VALUE "LegalCopyright", "版权所有 (C) 2012\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "FirmwareModifier.DLL\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "FirmwareModifier Dynamic Link Library\0"
+            VALUE "ProductVersion", "1, 0, 0, 2\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_TEST_PLATFORM DIALOG DISCARDABLE  0, 0, 679, 415
+STYLE WS_CHILD
+FONT 9, "宋体"
+BEGIN
+    LTEXT           "",IDC_STATIC_LOGO,270,45,398,168
+    CONTROL         "List5",IDC_LIST_SYS_APKS,"SysListView32",LVS_REPORT | 
+                    WS_DISABLED | WS_BORDER | WS_TABSTOP,273,247,391,128
+    CONTROL         "List5",IDC_LIST_PREINST_APKS,"SysListView32",LVS_REPORT | 
+                    WS_DISABLED | WS_BORDER | WS_TABSTOP,273,249,391,125
+    CONTROL         "Tab2",IDC_TAB_APKS,"SysTabControl32",WS_DISABLED,270,
+                    231,400,148
+    GROUPBOX        "APK 配置",IDC_STATIC_APKS_CONFIG,267,221,406,161
+    CONTROL         "Tab1",IDC_TAB_LOGO,"SysTabControl32",WS_DISABLED,269,30,
+                    401,185
+    CTEXT           "",IDC_STATIC_PIXEL_INFO,597,181,71,16,SS_CENTERIMAGE
+    CTEXT           "",IDC_STATIC_PIXEL_INFO2,595,194,71,16,SS_CENTERIMAGE
+    EDITTEXT        IDC_SYS_EDIT1,64,17,65,14,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_SYS_EDIT2,191,18,63,14,ES_AUTOHSCROLL | WS_DISABLED | 
+                    WS_GROUP
+    EDITTEXT        IDC_SYS_EDIT3,64,38,190,14,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_SYS_EDIT4,64,58,190,14,ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        IDC_SYS_EDIT5,65,108,189,14,ES_AUTOHSCROLL | WS_DISABLED | 
+                    WS_GROUP
+    EDITTEXT        IDC_SYS_EDIT6,65,127,101,14,ES_AUTOHSCROLL | WS_DISABLED | 
+                    WS_GROUP
+    PUSHBUTTON      "替换uBootLogo",BTN_REPLACE_BOOT_LOGO,269,13,78,15,
+                    WS_DISABLED
+    PUSHBUTTON      "替换Android动画",BTN_REPLACE_BOOT_ANIMATION,347,13,78,
+                    15,WS_DISABLED
+    PUSHBUTTON      "替换默认壁纸",BTN_REPLACE_DEFAULT_WALLPAPER,425,13,78,
+                    15,WS_DISABLED
+    PUSHBUTTON      "替换kernelLogo",BTN_REPLACE_KERNEL_LOGO,581,13,78,15,
+                    WS_DISABLED
+    PUSHBUTTON      "替换充电图标",BTN_REPLACE_CHARGE_LOGO,503,13,78,15,
+                    WS_DISABLED
+    PUSHBUTTON      "修改按键映射",IDC_BTN_MODIFY_KEY_MAP,342,386,75,17,
+                    WS_DISABLED
+    PUSHBUTTON      "修改buildprop",IDC_BTN_MODIFY_BUILD_PROP,468,386,75,17,
+                    WS_DISABLED
+    PUSHBUTTON      "保       存",IDC_BTN_CONFIRM_MODIFY,594,386,75,17,
+                    WS_DISABLED
+    GROUPBOX        "画面配置",IDC_STATIC_LOGO_CONFIG,267,1,406,217
+    GROUPBOX        "系统信息",IDC_STATIC_SYS_INFO,1,1,259,79
+    GROUPBOX        "USB信息",IDC_STATIC_USB_CONFIG,1,91,259,60
+    GROUPBOX        "系统配置",IDC_STATIC_SYS_SETTINGS,1,160,259,113
+    GROUPBOX        "系统状态克隆",IDC_STATIC_SYS_SETTINGS_BACKUP,1,281,259,
+                    101
+    CTEXT           "机    型",IDC_STATIC1,131,19,55,10
+    CTEXT           "固件版本",IDC_STATIC7,3,40,59,8
+    CTEXT           "SDK 版 本",IDC_STATIC8,4,60,60,10
+    CTEXT           "USB 厂商",IDC_STATIC2,3,110,61,8
+    CTEXT           "磁盘卷标",IDC_STATIC3,3,131,61,8
+    CTEXT           "DPI 设置",IDC_STATIC4,3,175,37,14,SS_CENTERIMAGE
+    PUSHBUTTON      "修改电池参数",IDC_BTN_MODIFY_BATTERY_PARAM,90,386,75,17,
+                    WS_DISABLED
+    PUSHBUTTON      "克隆",IDC_BTN_CLONE,170,350,78,18,WS_DISABLED
+    PUSHBUTTON      "打开",BTN_REPLACE_BOOT_RING,219,204,34,15,WS_DISABLED
+    PUSHBUTTON      "修改内核配置",IDC_BTN_MODIFY_KERNEL_PARAMETER,216,386,
+                    75,17,WS_DISABLED
+    CTEXT           "公司",IDC_STATIC9,3,19,59,8
+    CTEXT           "替换开机铃声",IDC_STATIC_BOOT_RING,3,204,56,15,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_BOOT_RING_PATH,65,204,147,15,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "Progress1",IDC_PROGRESS_CLONE,"msctls_progress32",
+                    WS_BORDER,11,350,148,17
+    CONTROL         "蓝牙设备",IDC_CHECK_ENABLE_BT,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED | WS_TABSTOP,149,175,45,14
+    EDITTEXT        IDC_EDIT_CLONE_INTRO,14,294,232,41,ES_MULTILINE | 
+                    ES_READONLY | ES_WANTRETURN | NOT WS_BORDER
+    LTEXT           "Static",IDC_STATIC_VERSION,6,390,71,16
+    EDITTEXT        IDC_SYS_EDIT7,64,176,78,15,ES_AUTOHSCROLL
+    CONTROL         "保留user分区数据，不格式化user分区",IDC_CHECK_WAPE_USER,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,9,250,242,14
+    PUSHBUTTON      "打开",BTN_REPLACE_SHUTDOWN_RING,219,228,34,15,
+                    WS_DISABLED
+    CTEXT           "替换关机铃声",IDC_STATIC_SHUTDOWN_RING,3,228,56,15,
+                    SS_CENTERIMAGE
+    EDITTEXT        IDC_EDIT_SHUTDOWN_RING_PATH,65,228,147,15,ES_AUTOHSCROLL | 
+                    ES_READONLY
+END
+
+IDD_CHARGE_IMAGE DIALOG DISCARDABLE  0, 0, 384, 193
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关机充电替换"
+FONT 9, "宋体"
+BEGIN
+    PUSHBUTTON      "Button1",IDC_BUTTON20,7,13,89,53,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Button1",IDC_BUTTON21,98,13,89,54,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Button1",IDC_BUTTON22,189,13,89,54,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Button1",IDC_BUTTON23,281,13,89,53,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Button1",IDC_BUTTON24,7,92,89,53,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Button1",IDC_BUTTON25,98,92,89,53,BS_BITMAP | BS_FLAT
+    GROUPBOX        "请单击相应的图片进行修改",IDC_STATIC_CHARGE,0,0,377,179
+    CONTROL         "uboot",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,7,170,36,
+                    10
+    CONTROL         "android",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,55,170,
+                    44,10
+    PUSHBUTTON      "Button1",IDC_BUTTON26,189,92,89,53,BS_BITMAP | BS_FLAT
+    PUSHBUTTON      "Button1",IDC_BUTTON27,281,92,89,53,BS_BITMAP | BS_FLAT
+    LTEXT           "battery_0",IDC_STATIC20,22,73,63,12
+    LTEXT           "battery_1",IDC_STATIC21,116,73,62,12
+    LTEXT           "battery_2",IDC_STATIC22,201,73,67,12
+    LTEXT           "battery_3",IDC_STATIC23,298,73,64,12
+    LTEXT           "battery_4",IDC_STATIC24,19,152,66,12
+    LTEXT           "battery_5",IDC_STATIC25,113,152,57,12
+    LTEXT           "battery_fail",IDC_STATIC26,199,152,63,12
+    LTEXT           "battery_charge",IDC_STATIC27,295,152,70,12
+END
+
+IDD_DIALOG_BATTERY_PARAM DIALOG DISCARDABLE  0, 0, 414, 229
+STYLE WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Battery Param"
+FONT 9, "宋体"
+BEGIN
+    PUSHBUTTON      "Read Params",IDC_BUTTON_READ_BATTERY,333,107,64,17,NOT 
+                    WS_VISIBLE
+    PUSHBUTTON      "Write Params",IDC_BUTTON_WRITE_BATTERY,324,31,77,16
+    EDITTEXT        IDC_EDIT_PULL_UP,260,10,52,14,ES_CENTER | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PULL_DOWN,260,32,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_1,18,79,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_2,82,79,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_3,146,79,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_4,210,79,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_5,273,79,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_6,336,79,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_7,18,108,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_8,82,108,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_9,146,108,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_10,210,108,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DISCHARGE_11,273,108,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_1,18,165,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_2,82,165,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_3,147,165,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_4,212,165,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_5,275,165,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_6,339,165,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_7,18,195,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_8,82,195,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_9,147,195,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_10,212,195,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHARGE_11,275,195,52,14,ES_CENTER | 
+                    ES_AUTOHSCROLL
+    CONTROL         "One Battery",IDC_RADIO_CELL_ONE,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,24,23,60,10
+    CONTROL         "Two Batteries",IDC_RADIO_CELL_TWO,"Button",
+                    BS_AUTORADIOBUTTON,93,23,68,10
+    CTEXT           "Pull-Up Resistor:",IDC_STATIC_PULL_UP,174,12,77,8
+    CTEXT           "Pull-Down Resistor:",IDC_STATIC_PULL_DOWN,174,35,77,8
+    GROUPBOX        "",IDC_GROUP_CELL,9,5,156,40
+    GROUPBOX        "Discharge",IDC_GROUP_DISCHARGE,9,55,395,77
+    GROUPBOX        "Charge",IDC_GROUP_CHARGE,9,141,395,77
+    CTEXT           "0%",IDC_STATIC,18,67,52,8,SS_CENTERIMAGE
+    CTEXT           "20%",IDC_STATIC,146,67,52,8
+    CTEXT           "30%",IDC_STATIC,210,67,52,8
+    CTEXT           "10%",IDC_STATIC,82,67,52,8
+    CTEXT           "40%",IDC_STATIC,273,67,52,8
+    CTEXT           "50%",IDC_STATIC,336,67,52,8
+    CTEXT           "60%",IDC_STATIC,18,97,52,8,SS_CENTERIMAGE
+    CTEXT           "70%",IDC_STATIC,82,97,52,8
+    CTEXT           "80%",IDC_STATIC,146,97,52,8
+    CTEXT           "90%",IDC_STATIC,210,97,52,8
+    CTEXT           "100%",IDC_STATIC,273,97,52,8
+    CTEXT           "0%",IDC_STATIC,18,153,52,8
+    CTEXT           "10%",IDC_STATIC,82,153,52,8
+    CTEXT           "20%",IDC_STATIC,147,153,52,8
+    CTEXT           "30%",IDC_STATIC,212,153,52,8
+    CTEXT           "40%",IDC_STATIC,275,153,52,8
+    CTEXT           "50%",IDC_STATIC,339,153,52,8
+    CTEXT           "60%",IDC_STATIC,18,183,52,8
+    CTEXT           "70%",IDC_STATIC,82,183,52,8
+    CTEXT           "80%",IDC_STATIC,147,183,52,8
+    CTEXT           "90%",IDC_STATIC,212,183,52,8
+    CTEXT           "100%",IDC_STATIC,275,183,52,8
+    PUSHBUTTON      "读取电池数据",IDC_BTN_READ_BATTERY_DATA,324,8,77,16
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENULIST MENU DISCARDABLE 
+BEGIN
+    POPUP "弹出菜单"
+    BEGIN
+        MENUITEM "添加APP",                     POPMENU_ADD
+        MENUITEM "删除APP",                     POPMENU_DEL
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_DIALOG_TEST_PLATFORM, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 412
+    END
+
+    IDD_CHARGE_IMAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 377
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 185
+    END
+
+    IDD_DIALOG_BATTERY_PARAM, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 218
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_TAB_TITLE_EN        "SYSTEM SETTING"
+    IDS_TAB_TITLE_CH        "系统设置"
+    IDS_GET_DIR_EN          "GET DIR"
+    IDS_GET_DIR_CH          "获取目录"
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_NOTE_PAD DIALOG DISCARDABLE  200, 0, 445, 289
+STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "System config"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Close",IDC_BTN_CLOSE,382,265,50,18
+    EDITTEXT        IDC_EDIT,7,7,431,256,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_AUTOHSCROLL | ES_WANTRETURN | WS_VSCROLL | WS_HSCROLL
+    EDITTEXT        IDC_EDIT1,13,269,40,14,NOT WS_BORDER
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_DIALOG_NOTE_PAD, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 438
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 283
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE 4, 2
+#pragma code_page(936)
+#endif //_WIN32
+#include "res\FirmwareModifier.rc2"  // non-Microsoft Visual C++ edited resources
+#include "l.chs\afxres.rc"          // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

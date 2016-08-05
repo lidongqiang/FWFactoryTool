@@ -1,0 +1,11 @@
+
+#if !defined(AFX_KERNELLOGOTOOL_H__62B9CB20_E777_4E05_B767_CFB1F729DEDB__INCLUDED_)
+#define AFX_KERNELLOGOTOOL_H__62B9CB20_E777_4E05_B767_CFB1F729DEDB__INCLUDED_
+
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+
+#include "resource.h"
+int kernel_modify_logo(CString KerenlPath,CString LogoPath);
+#endif // !defined(AFX_KERNELLOGOTOOL_H__62B9CB20_E777_4E05_B767_CFB1F729DEDB__INCLUDED_)
