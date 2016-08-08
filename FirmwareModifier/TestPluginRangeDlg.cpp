@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 /*#include <vld.h>*/
+#include <locale>
 #include <stdlib.h>
 #include "FirmwareModifier.h"
 #include "TestPluginRangeDlg.h"
@@ -899,35 +900,48 @@ int CTestPluginRangeDlg::ReadParameterFile()
 	parameter_list.RemoveAll();
 	mPartitionList.RemoveAll();
 
-	for(pos=mPackageFileList.GetHeadPosition();pos;)
-    {
-        str_find = mPackageFileList.GetNext(pos);
-        n = str_find.Find(_T("parameter"));
-		g_pPluginLogObject->Record(_T("file:")+str_find);
-        if (n >= 0)
-        {
-			while(count--){
-				strTxt=str_find.Mid(mStart,1);
-				if((strTxt.CompareNoCase(str1)==0)||((strTxt.CompareNoCase(str2)==0)))
-					continue;
-				else
-					break;
-				mStart++;
-			}
+// 	for(pos=mPackageFileList.GetHeadPosition();pos;)
+//     {
+//         str_find = mPackageFileList.GetNext(pos);
+//         n = str_find.Find(_T("parameter"));
+// 		g_pPluginLogObject->Record(_T("file:")+str_find);
+//         if (n >= 0)
+//         {
+// 			while(count--){
+// 				strTxt=str_find.Mid(mStart,1);
+// 				if((strTxt.CompareNoCase(str1)==0)||((strTxt.CompareNoCase(str2)==0)))
+// 					continue;
+// 				else
+// 					break;
+// 				mStart++;
+// 			}
+// 
+// 			if(count<=0){
+// 				g_pPluginLogObject->Record(_T("in packagefile parameter error"));
+// 				return -1;
+// 			}
+// 
+// 			mEnd=str_find.GetLength();
+// 
+// 			strtemp=str_find.Right(mEnd-mStart);
+// 			strTxt=strtemp.Mid(0,strtemp.GetLength());
+// 			strTxt.TrimLeft();
+// 			strTxt.TrimRight();
+//         }
+//     }
 
-			if(count<=0){
-				g_pPluginLogObject->Record(_T("in packagefile parameter error"));
-				return -1;
-			}
-
-			mEnd=str_find.GetLength();
-
-			strtemp=str_find.Right(mEnd-mStart);
-			strTxt=strtemp.Mid(0,strtemp.GetLength()-2);
+	for(int i = 0; i < mPackageFileList.GetCount(); ++i){
+		CString strItem = mPackageFileList.GetAt(mPackageFileList.FindIndex(i));
+		int pIndex = strItem.Find(_T("parameter"));
+		int cIndex = strItem.Find(_T("#"));
+		if(cIndex == -1 && pIndex >= 0){
+			strTxt = strItem.Mid(9);
 			strTxt.TrimLeft();
 			strTxt.TrimRight();
-        }
-    }
+			--count;
+			break;
+		}
+	}
 	if(count>=1000){
 		g_pPluginLogObject->Record(_T("No Find parameter in packagefile"));	
 		return -1;
@@ -936,63 +950,79 @@ int CTestPluginRangeDlg::ReadParameterFile()
 	strParameterPath.Format(_T("%s%s%s"),strTempPath,_T("\\Android\\"),strTxt);
 
     memset(content_buf,0,sizeof(content_buf));
-    pBuffer = read_file(strParameterPath, 0);
-    content_len = 0;
-    loop = 1;
-    if (!pBuffer){
+	//MessageBox("parameterÂ·¾¶:" + strParameterPath);
+    //pBuffer = read_file(strParameterPath, 0);
+	CStdioFile parameterFile;
+	bool openResult = parameterFile.Open(strParameterPath, CFile::modeRead, NULL);
+    //content_len = 0;
+    //loop = 1;
+    if (!openResult){
 		g_pPluginLogObject->Record(_T("open parameter failed:")+strParameterPath);
         return -1;
     }
     else
     {		
-        x = pBuffer;
-        while(loop)
-        {
-            switch(*x)
-            {
-            case 0x0D:
-                content_buf[content_len] = 0x0D;
-                content_len++;					
-                x++;
-                if(*x == 0x0a) x++;					
-                content_buf[content_len] = 0x0A;
-                content_len++;
-                content_buf[content_len] = 0x00;
-                nSize = strlen(content_buf);
-                AnsiToUnicode(lpDir,nSize,content_buf);
-                parameter_list.AddTail(lpDir);
-				if (lpDir)
-				{
-					delete []lpDir;
-					lpDir = NULL;
-				}
-                content_len = 0;
-                memset(content_buf,0,sizeof(content_buf));
-                break;
-            case  0:                
-                loop = 0;
-                nSize = strlen(content_buf);
-                AnsiToUnicode(lpDir,nSize,content_buf);
-                parameter_list.AddTail(lpDir);
-				if (lpDir)
-				{
-					delete []lpDir;
-					lpDir = NULL;
-				}
-                content_len = 0;
-                memset(content_buf,0,sizeof(content_buf));
-                break;
-            default:
-				content_buf[content_len] = *x++;
-                content_len++;
-                break;
-            }
-        }
+//         x = pBuffer;
+//         while(loop)
+//         {
+//             switch(*x)
+//             {
+//             case 0x0D:
+//                 content_buf[content_len] = 0x0D;
+//                 content_len++;					
+//                 x++;
+//                 if(*x == 0x0a) x++;					
+//                 content_buf[content_len] = 0x0A;
+//                 content_len++;
+//                 content_buf[content_len] = 0x00;
+//                 nSize = strlen(content_buf);
+//                 AnsiToUnicode(lpDir,nSize,content_buf);
+//                 parameter_list.AddTail(lpDir);
+// 				if (lpDir)
+// 				{
+// 					delete []lpDir;
+// 					lpDir = NULL;
+// 				}
+//                 content_len = 0;
+//                 memset(content_buf,0,sizeof(content_buf));
+//                 break;
+//             case  0:                
+//                 loop = 0;
+//                 nSize = strlen(content_buf);
+//                 AnsiToUnicode(lpDir,nSize,content_buf);
+//                 parameter_list.AddTail(lpDir);
+// 				if (lpDir)
+// 				{
+// 					delete []lpDir;
+// 					lpDir = NULL;
+// 				}
+//                 content_len = 0;
+//                 memset(content_buf,0,sizeof(content_buf));
+//                 break;
+//             default:
+// 				content_buf[content_len] = *x++;
+//                 content_len++;
+//                 break;
+//             }
+//         }
+		CString readItem;
+		while(parameterFile.ReadString(readItem)){
+			CString readLine = readItem;
+			parameter_list.AddTail(readLine);
+		}
+
+		parameterFile.Close();
     }	
-    if(pBuffer)
-		free(pBuffer);
+//     if(pBuffer)
+// 		free(pBuffer);
+//	for(int j = 0; j < parameter_list.GetCount(); ++j){
+//		AfxMessageBox(_T("paramter line:") + parameter_list.GetAt(parameter_list.FindIndex(j)));
+//	}
+
 	return 0;
 }
+
+
 
 int CTestPluginRangeDlg::ReadDefaultProp()
 {
@@ -3755,6 +3785,7 @@ void CTestPluginRangeDlg::InitApkConfigGroupBox()
     strIDName.ReleaseBuffer(MAX_LENGTH);
 }
 
+
 void CTestPluginRangeDlg::ModifyParameterFile()
 {
 	int n;
@@ -3762,7 +3793,11 @@ void CTestPluginRangeDlg::ModifyParameterFile()
 	POSITION pos;
 	CString str_find,strTxt,str_name;
 	char Buffer[MAX_CMDLINE];
-
+	
+	//	for(int i = 0; i < parameter_list.GetCount(); ++i){
+	//		AfxMessageBox(_T("parameter line:") + parameter_list.GetAt(parameter_list.FindIndex(i)));
+	//	}
+	
 	if((file = _tfopen(strParameterPath,_T("wb")))!=NULL)
     {
         for(pos=parameter_list.GetHeadPosition();pos;)
@@ -3772,9 +3807,9 @@ void CTestPluginRangeDlg::ModifyParameterFile()
             if(n>=0)
             {			
                 GetDlgItemText(IDC_SYS_EDIT2,str_name);
-                str_find = "MACHINE_MODEL:";
+                str_find = "MACHINE_MODEL: ";
                 str_find += str_name;
-                str_find += _T("\r\n"); 
+                //str_find += _T("\r\n"); 
             }
 			else
 			{
@@ -3785,7 +3820,8 @@ void CTestPluginRangeDlg::ModifyParameterFile()
 						str_find=strCmdline;
 				}
 			}
-
+			//if(pos != parameter_list.GetTailPosition())
+			str_find += _T("\r\n");
             WideCharToMultiByte(CP_ACP,WC_COMPOSITECHECK,str_find,-1,Buffer,sizeof(Buffer),NULL,NULL);
             fputs(Buffer,file);
         }
@@ -4673,7 +4709,25 @@ int CTestPluginRangeDlg::ReadPackageFile()
                 break;
             }
         }
-    }	
+    }
+
+	char* old_locale = _strdup( setlocale(LC_CTYPE,NULL) );
+	setlocale( LC_CTYPE, "chs" );
+	CStdioFile packageFile;
+	bool isOPen = packageFile.Open(strPackageFilePath, CFile::modeRead, NULL);
+	CString packageItem;
+	mPackageFileList.RemoveAll();
+	while(packageFile.ReadString(packageItem)){
+		packageItem.Format(_T("%s"), (LPCSTR)(LPCTSTR)packageItem);
+		//MessageBox(packageItem);
+		mPackageFileList.AddTail(packageItem);
+	}	
+	
+	packageFile.Close();
+	
+	setlocale( LC_CTYPE, old_locale );
+	free( old_locale );
+
     if(pBuffer)
 		free(pBuffer);
     return 0;
