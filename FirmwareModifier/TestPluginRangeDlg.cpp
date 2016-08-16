@@ -25,7 +25,7 @@
 
 #pragma comment( lib, "shlwapi.lib")
 
-#define FirmwareVersion _T("5.3-20160117")
+#define FirmwareVersion _T("5.4-20160816")
 /////////////////////////////////////////////////////////////////////////////////
 /*
 	1 去除关机动画
@@ -56,7 +56,11 @@
 	
 	14 修复修改内核配置开辟空间不够导致的闪退
 
-    15
+    15 增加关机动画
+	
+	16 增加关机铃声
+
+	17 增加卸载不可恢复apk
 
  */
 
@@ -261,6 +265,7 @@ void CTestPluginRangeDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_PROGRESS_CLONE, m_progressClone);
     DDX_Control(pDX, IDC_LIST_SYS_APKS, m_sysApksList);
     DDX_Control(pDX, IDC_LIST_PREINST_APKS, m_preInstApksList);
+	DDX_Control(pDX, IDC_LIST_PREINST_DEL_APKS, m_preInstDelApksList);
     DDX_Control(pDX, IDC_TAB_APKS, m_tabApks);
     DDX_Control(pDX, IDC_TAB_LOGO, m_tabLogo);
 	//}}AFX_DATA_MAP
@@ -275,10 +280,12 @@ ON_WM_TIMER()
 ON_WM_PAINT()
 ON_BN_CLICKED(BTN_REPLACE_BOOT_LOGO, OnReplaceBootLogo)
 ON_BN_CLICKED(BTN_REPLACE_BOOT_ANIMATION, OnReplaceBootAnimation)
+ON_BN_CLICKED(BTN_REPLACE_SHUTDOWN_ANIMATION, OnReplaceShutdownAnimation)
 ON_NOTIFY(TCN_SELCHANGE, IDC_TAB_LOGO, OnSelchangeTabLogo)
 ON_BN_CLICKED(BTN_REPLACE_DEFAULT_WALLPAPER, OnReplaceDefaultWallpaper)
 ON_NOTIFY(TCN_SELCHANGE, IDC_TAB_APK, OnSelchangeTabApk)
 ON_NOTIFY(NM_RCLICK, IDC_LIST_PREINST_APKS, OnRclickListPreinstApks)
+ON_NOTIFY(NM_RCLICK, IDC_LIST_PREINST_DEL_APKS, OnRclickListPreinstDelApks)
 ON_NOTIFY(NM_RCLICK, IDC_LIST_SYS_APKS, OnRclickListSysApks)
 	ON_BN_CLICKED(IDC_BTN_CONFIRM_MODIFY, OnBtnConfirmModify)
 	ON_WM_CTLCOLOR()
@@ -1366,6 +1373,11 @@ int CTestPluginRangeDlg::LoadWallopaper()
     strBootAnimationBasePath=strBootAnimationPath.Left(n)+"\\bootanimation";
     ImportAnimation(strBootAnimationBasePath, BOOT_ANIMATION);
     
+	strShutdownAnimationPath=strTempPath+"\\System\\media\\shutdownanimation.zip";
+    n = strShutdownAnimationPath.ReverseFind('\\');
+    strShutdownAnimationBasePath=strShutdownAnimationPath.Left(n)+"\\shutdownanimation.zip";
+    ImportAnimation(strShutdownAnimationBasePath, SHUTDOWN_ANIMATION);
+
 	return 0;
 }
 
@@ -1390,6 +1402,7 @@ int CTestPluginRangeDlg::LoadResource()
 	int iRet=0;
 	CString strResult;
 	CString g_strCovert = strRootPath +_T("\\bin\\unpackresource.bat");
+	//CString g_strCovert = strRootPath +_T("\\bin\\resourcetool.bat");
 	strCmd = CMySpawnConsumer::CovertRunBat(g_strCovert);
 	if (!RunOhterExe(strCmd,&strResult))
 	{
@@ -1483,6 +1496,7 @@ void CTestPluginRangeDlg::OnUnPackFinishMsg(WPARAM wParam, LPARAM lParam)
  
 	if(LoadAnimation()>=0){
 		((CButton*)GetDlgItem(BTN_REPLACE_BOOT_ANIMATION))->EnableWindow(TRUE); 
+		((CButton*)GetDlgItem(BTN_REPLACE_SHUTDOWN_ANIMATION))->EnableWindow(TRUE); 
 	}
 
 	
@@ -1510,6 +1524,8 @@ void CTestPluginRangeDlg::OnUnPackFinishMsg(WPARAM wParam, LPARAM lParam)
     m_sysApksList.ShowWindow(SW_SHOW);
     m_preInstApksList.EnableWindow(TRUE);
     m_preInstApksList.ShowWindow(HIDE_WINDOW);
+	m_preInstDelApksList.EnableWindow(TRUE);
+    m_preInstDelApksList.ShowWindow(HIDE_WINDOW);
 
     g_bHasUnpacked = TRUE;
 
@@ -2188,7 +2204,7 @@ void CTestPluginRangeDlg::OnTimer(UINT nIDEvent)
 
     switch(nIDEvent) {
     case BOOT_ANIMATION_TIMER:
-    //case SHUTDOWN_ANIMATION_TIMER:
+    case SHUTDOWN_ANIMATION_TIMER:
         if(needDisplayBootanimation)
         {
             if (m_AnimationPos == NULL) {
@@ -2240,6 +2256,11 @@ void CTestPluginRangeDlg::OnPaint()
             GetDlgItem(IDC_STATIC_LOGO)->RedrawWindow();
 		if(isReadkernelLogo)
             DisplayPictrue(strResourceKernelLogoPath,false,1); 
+        break;
+	case 4:
+        if((needDisplayDefaultWallpaper)&&(PathFileExists(strDefaultWallpaperPath)))
+            GetDlgItem(IDC_STATIC_LOGO)->RedrawWindow();
+		DisplayPictrue(strDefaultWallpaperPath,true,0); 
         break;
     default:
         break;
@@ -2593,7 +2614,7 @@ void CTestPluginRangeDlg::OnSelchangeTabLogo(NMHDR* pNMHDR, LRESULT* pResult)
     case 0:
         needDisplayBootanimation =FALSE;
         KillTimer(BOOT_ANIMATION_TIMER);
-        //KillTimer(SHUTDOWN_ANIMATION_TIMER);
+        KillTimer(SHUTDOWN_ANIMATION_TIMER);
         //kernel_display_logo(kernel_path);
         GetDlgItem(IDC_STATIC_LOGO)->RedrawWindow();
 		if(isReadubootLogo)
@@ -2601,7 +2622,7 @@ void CTestPluginRangeDlg::OnSelchangeTabLogo(NMHDR* pNMHDR, LRESULT* pResult)
 
         break;
     case 1:
-        //KillTimer(SHUTDOWN_ANIMATION_TIMER);
+        KillTimer(SHUTDOWN_ANIMATION_TIMER);
         ImportAnimation(strBootAnimationBasePath, BOOT_ANIMATION);
         
         if(isExistAnroidAnimationZip)
@@ -2618,7 +2639,7 @@ void CTestPluginRangeDlg::OnSelchangeTabLogo(NMHDR* pNMHDR, LRESULT* pResult)
     case 2:
         needDisplayBootanimation =FALSE;
         KillTimer(BOOT_ANIMATION_TIMER);
-        //KillTimer(SHUTDOWN_ANIMATION_TIMER);
+        KillTimer(SHUTDOWN_ANIMATION_TIMER);
         if(needDisplayDefaultWallpaper)
             DisplayPictrue(strDefaultWallpaperPath,true,0); 
         else
@@ -2627,12 +2648,27 @@ void CTestPluginRangeDlg::OnSelchangeTabLogo(NMHDR* pNMHDR, LRESULT* pResult)
     case 3:
         needDisplayBootanimation =FALSE;
         KillTimer(BOOT_ANIMATION_TIMER);
-        //KillTimer(SHUTDOWN_ANIMATION_TIMER);
+        KillTimer(SHUTDOWN_ANIMATION_TIMER);
         //kernel_display_logo(kernel_path);
         GetDlgItem(IDC_STATIC_LOGO)->RedrawWindow();
 		if(isReadkernelLogo)
 			DisplayPictrue(strResourceKernelLogoPath,false,1); 
 		
+        break;
+	case 4:
+        KillTimer(BOOT_ANIMATION_TIMER);
+        ImportAnimation(strShutdownAnimationBasePath, SHUTDOWN_ANIMATION);
+        
+        if(isExistAnroidAnimationZip)
+        {
+            needDisplayBootanimation =TRUE;
+            timecount=1000/AndroidAnimation.FramesPersecond;//每一帧需要多少秒
+            SetTimer(SHUTDOWN_ANIMATION_TIMER, timecount, NULL);
+        }
+        else
+        {
+            RedrawWindow();
+        }
         break;
 
     default:
@@ -2696,10 +2732,14 @@ BOOL CTestPluginRangeDlg::OnCommand(WPARAM wParam, LPARAM lParam)
             {
                 pCurrentList = &m_sysApksList;
             } 
-            else
+            else if(m_nCurrenListIndex == 2)
             {
                 pCurrentList = &m_preInstApksList;
             }
+			else
+			{
+				pCurrentList = &m_preInstDelApksList;
+			}
             
             POSITION  sSelPos = NULL;
             CString delstr;
@@ -2735,8 +2775,13 @@ BOOL CTestPluginRangeDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 								delstr = strAppPath + pCurrentList->GetItemText(nSelItem,0);
 								DeleteFolder(strAppPath);
 							}
-						}else{						
+						}else if(m_nCurrenListIndex == 2){						
 							strAppPath.Format(_T("%s%s%s"),m_strAppsPrePath,strApkName.Left(strApkName.ReverseFind('.')),_T("\\"));
+							delstr = strAppPath + pCurrentList->GetItemText(nSelItem,0);	
+							DeleteFolder(strAppPath);
+						}
+						else{
+							strAppPath.Format(_T("%s%s%s"),m_strAppsDelPath,strApkName.Left(strApkName.ReverseFind('.')),_T("\\"));
 							delstr = strAppPath + pCurrentList->GetItemText(nSelItem,0);	
 							DeleteFolder(strAppPath);
 						}
@@ -2923,7 +2968,7 @@ BOOL CTestPluginRangeDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 								MessageBox(strTxt, m_strMsgBoxTitle, MB_OK);
 							}
 						}
-					}else if(m_androidVersion==ANDROID_VERTION_FiVE_ZERO || m_androidVersion==ANDROID_VERTION_SIX_ZERO ){
+					}else if(m_androidVersion==ANDROID_VERTION_FiVE_ZERO){
 						if(m_nCurrenListIndex == 1)
 						{
 							strAppPath.Format(_T("%s%s%s"),m_strAppsPath,filename.Left(filename.ReverseFind('.')),_T("\\"));
@@ -2937,7 +2982,7 @@ BOOL CTestPluginRangeDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 								CTime FileTime(ft);
 								substr = FileTime.Format("%y-%m-%d");
 								m_sysApksList.SetItemText(itemcount,2,substr);
-
+								
 								CreateFolder(strAppPath);
 								CopyFile(fullfilename,strAppPath + filename,false);
 								m_nCurrentSize += file.GetLength64();
@@ -2961,6 +3006,82 @@ BOOL CTestPluginRangeDlg::OnCommand(WPARAM wParam, LPARAM lParam)
 								CTime FileTime(ft);
 								substr = FileTime.Format("%y-%m-%d");
 								m_preInstApksList.SetItemText(itemcount,2,substr);
+								
+								if(!FolderExist(strAppPath))
+									CreateFolder(strAppPath);
+								CopyFile(filename,SetFileTitleFromFileName(strAppPath + filename,_T(".apk")),false);
+								m_nCurrentSize += file.GetLength64();
+							} 
+							else
+							{
+								GetPrivateProfileStringW(_T("Prompt"),_T("MESSAGE_FILE_EXIST"),_T("MESSAGE_FILE_EXIST"),
+									strTxt.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
+								MessageBox(strTxt, m_strMsgBoxTitle, MB_OK);
+							}
+						}                 
+					}else if(m_androidVersion==ANDROID_VERTION_SIX_ZERO ){
+						if(m_nCurrenListIndex == 1)
+						{
+							strAppPath.Format(_T("%s%s%s"),m_priAppsPath,filename.Left(filename.ReverseFind('.')),_T("\\"));
+							if (!FileExist(strAppPath + filename))
+							{
+								itemcount = m_sysApksList.GetItemCount();
+								m_sysApksList.InsertItem(itemcount,info.szDisplayName);
+								substr.Format(_T("%d K"),file.GetLength64() / 1024);
+								m_sysApksList.SetItemText(itemcount,1,substr);
+								file.GetLastWriteTime(&ft);
+								CTime FileTime(ft);
+								substr = FileTime.Format("%y-%m-%d");
+								m_sysApksList.SetItemText(itemcount,2,substr);
+
+								CreateFolder(strAppPath);
+								CopyFile(fullfilename,strAppPath + filename,false);
+								m_nCurrentSize += file.GetLength64();
+							} 
+							else
+							{
+								GetPrivateProfileStringW(_T("Prompt"),_T("MESSAGE_FILE_EXIST"),_T("MESSAGE_FILE_EXIST"),
+									strTxt.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
+								MessageBox(strTxt, m_strMsgBoxTitle, MB_OK);
+							}                    
+						}else if(m_nCurrenListIndex == 2){
+							strAppPath.Format(_T("%s%s%s"),m_strAppsPrePath,filename.Left(filename.ReverseFind('.')),_T("\\"));
+							TRACE1("%s\n",strAppPath);
+							if (!FileExist(SetFileTitleFromFileName(strAppPath + filename,_T(".apk"))))
+							{
+								itemcount = m_preInstApksList.GetItemCount();
+								m_preInstApksList.InsertItem(itemcount,info.szDisplayName);
+								substr.Format(_T("%d K"),file.GetLength64() / 1024);
+								m_preInstApksList.SetItemText(itemcount,1,substr);
+								file.GetLastWriteTime(&ft);
+								CTime FileTime(ft);
+								substr = FileTime.Format("%y-%m-%d");
+								m_preInstApksList.SetItemText(itemcount,2,substr);
+								
+								if(!FolderExist(strAppPath))
+									CreateFolder(strAppPath);
+								CopyFile(filename,SetFileTitleFromFileName(strAppPath + filename,_T(".apk")),false);
+								m_nCurrentSize += file.GetLength64();
+							} 
+							else
+							{
+								GetPrivateProfileStringW(_T("Prompt"),_T("MESSAGE_FILE_EXIST"),_T("MESSAGE_FILE_EXIST"),
+									strTxt.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
+								MessageBox(strTxt, m_strMsgBoxTitle, MB_OK);
+							}
+						}else{
+							strAppPath.Format(_T("%s%s%s"),m_strAppsDelPath,filename.Left(filename.ReverseFind('.')),_T("\\"));
+							TRACE1("%s\n",strAppPath);
+							if (!FileExist(SetFileTitleFromFileName(strAppPath + filename,_T(".apk"))))
+							{
+								itemcount = m_preInstDelApksList.GetItemCount();
+								m_preInstDelApksList.InsertItem(itemcount,info.szDisplayName);
+								substr.Format(_T("%d K"),file.GetLength64() / 1024);
+								m_preInstDelApksList.SetItemText(itemcount,1,substr);
+								file.GetLastWriteTime(&ft);
+								CTime FileTime(ft);
+								substr = FileTime.Format("%y-%m-%d");
+								m_preInstDelApksList.SetItemText(itemcount,2,substr);
 								
 								if(!FolderExist(strAppPath))
 									CreateFolder(strAppPath);
@@ -3021,9 +3142,16 @@ void CTestPluginRangeDlg::OnSelchangeTabApk(NMHDR* pNMHDR, LRESULT* pResult)
     case 0:        
         m_sysApksList.ShowWindow(SW_SHOW);
         m_preInstApksList.ShowWindow(SW_HIDE);
+		m_preInstDelApksList.ShowWindow(SW_HIDE);
         break;
     case 1:
         m_preInstApksList.ShowWindow(SW_SHOW);
+        m_sysApksList.ShowWindow(SW_HIDE);
+		m_preInstDelApksList.ShowWindow(SW_HIDE);
+        break;
+	case 2:
+        m_preInstDelApksList.ShowWindow(SW_SHOW);
+		m_preInstApksList.ShowWindow(SW_HIDE);
         m_sysApksList.ShowWindow(SW_HIDE);
         break;
     default:
@@ -3106,7 +3234,7 @@ void CTestPluginRangeDlg::ParseApps()
     CString str_app;
     CString str_root;
 	CString strTxt;
-
+	
 	LPWSTR lpDir;
 	lpDir=GetRootDir();
 	strRootDir = (CString)lpDir;
@@ -3116,7 +3244,7 @@ void CTestPluginRangeDlg::ParseApps()
 	} 
     m_sysApksList.DeleteAllItems();
     m_preInstApksList.DeleteAllItems();
-
+	
 	if(m_androidVersion==ANDROID_VERTION_FOUR_TWO)
 	{
 		str += _T("\\app\\");
@@ -3124,49 +3252,49 @@ void CTestPluginRangeDlg::ParseApps()
 		
 		if(str.Right(1) != "\\")
 			str += "\\";
-		 str += "*.*";
-
+		str += "*.*";
+		
 		CFileFind file;
-	    BOOL bContinue = file.FindFile(str);
-	    while(bContinue)
-	    {
-	        bContinue = file.FindNextFile();
-	        if(!file.IsDirectory() && !file.IsDots())
-	        {
-	            SHFILEINFO info;
-	            CString temp = str;
-	            int index = temp.Find(L"*.*");
-	            temp.Delete(index,3);
-	            SHGetFileInfo(temp + file.GetFileName(),0,&info,sizeof(&info),SHGFI_DISPLAYNAME | SHGFI_ICON);
-	            
-	            GetFileTitleFromFileName(file.GetFileName(),strFilter);
-	            //int i = m_ImageList.Add(info.hIcon);
-	            
-	            if((strFilter == "nm") || (strFilter == "NM"))
-	            {
-	                
-	                m_preInstApksList.InsertItem(filecount_list2,SetFileTitleFromFileName(info.szDisplayName,_T(".apk")));
-	                substr.Format(_T("%d K"),file.GetLength64()/1024);
-	                m_preInstApksList.SetItemText(filecount_list2 - 1,1,substr);
-	                file.GetLastWriteTime(&ft);
-	                CTime FileTime(ft);
-	                substr = FileTime.Format(_T("%y-%m-%d"));
-	                m_preInstApksList.SetItemText(filecount_list2 - 1,2,substr);
-	                filecount_list2++;
-	            }
-	            else
-	            {
-	                m_sysApksList.InsertItem(filecount_list1,info.szDisplayName);
-	                substr.Format(_T("%d K"),file.GetLength64()/1024);
-	                m_sysApksList.SetItemText(filecount_list1 - 1,1,substr);
-	                file.GetLastWriteTime(&ft);
-	                CTime FileTime(ft);
-	                substr = FileTime.Format(_T("%y-%m-%d"));
-	                m_sysApksList.SetItemText(filecount_list1 - 1,2,substr);
-	                filecount_list1++;
-	            }
-	        }
-	    }
+		BOOL bContinue = file.FindFile(str);
+		while(bContinue)
+		{
+			bContinue = file.FindNextFile();
+			if(!file.IsDirectory() && !file.IsDots())
+			{
+				SHFILEINFO info;
+				CString temp = str;
+				int index = temp.Find(L"*.*");
+				temp.Delete(index,3);
+				SHGetFileInfo(temp + file.GetFileName(),0,&info,sizeof(&info),SHGFI_DISPLAYNAME | SHGFI_ICON);
+				
+				GetFileTitleFromFileName(file.GetFileName(),strFilter);
+				//int i = m_ImageList.Add(info.hIcon);
+				
+				if((strFilter == "nm") || (strFilter == "NM"))
+				{
+					
+					m_preInstApksList.InsertItem(filecount_list2,SetFileTitleFromFileName(info.szDisplayName,_T(".apk")));
+					substr.Format(_T("%d K"),file.GetLength64()/1024);
+					m_preInstApksList.SetItemText(filecount_list2 - 1,1,substr);
+					file.GetLastWriteTime(&ft);
+					CTime FileTime(ft);
+					substr = FileTime.Format(_T("%y-%m-%d"));
+					m_preInstApksList.SetItemText(filecount_list2 - 1,2,substr);
+					filecount_list2++;
+				}
+				else
+				{
+					m_sysApksList.InsertItem(filecount_list1,info.szDisplayName);
+					substr.Format(_T("%d K"),file.GetLength64()/1024);
+					m_sysApksList.SetItemText(filecount_list1 - 1,1,substr);
+					file.GetLastWriteTime(&ft);
+					CTime FileTime(ft);
+					substr = FileTime.Format(_T("%y-%m-%d"));
+					m_sysApksList.SetItemText(filecount_list1 - 1,2,substr);
+					filecount_list1++;
+				}
+			}
+		}
 	}
 	else if(m_androidVersion==ANDROID_VERTION_FOUR_FOUR){
 		CFileFind file;
@@ -3175,7 +3303,7 @@ void CTestPluginRangeDlg::ParseApps()
 		if(str.Right(1) != "\\")
 			str += "\\";
 		str += "*.*";
-
+		
 		TRACE1("%s\n",m_strAppsPath);
 		
 		BOOL bContinue = file.FindFile(str);
@@ -3201,8 +3329,8 @@ void CTestPluginRangeDlg::ParseApps()
 				m_sysApksList.SetItemText(filecount_list1 - 1,2,substr);
 				filecount_list1++;
 			}
-	    }
-
+		}
+		
 		str = strRootDir+_T("\\priv-app\\");
 		m_priAppsPath = str;
 		if(str.Right(1) != "\\")
@@ -3235,8 +3363,8 @@ void CTestPluginRangeDlg::ParseApps()
 				filecount_list1++;
 			}
 		}
-
-
+		
+		
 		str = strRootDir+_T("\\preinstall\\");
 		m_strAppsPrePath = str;
 		if(str.Right(1) != "\\")
@@ -3245,7 +3373,7 @@ void CTestPluginRangeDlg::ParseApps()
 		TRACE1("%s\n",m_strAppsPrePath);
 		if(!FolderExist(m_strAppsPrePath))
 			CreateFolder(m_strAppsPrePath);
-
+		
 		bContinue = file.FindFile(str);
 		while(bContinue)
 		{
@@ -3269,31 +3397,60 @@ void CTestPluginRangeDlg::ParseApps()
 				m_preInstApksList.SetItemText(filecount_list2 - 1,2,substr);
 				filecount_list2++;
 			}
-	    }
+		}
+	}
+	else if(m_androidVersion==ANDROID_VERTION_SIX_ZERO){
+		CFileFind file;		
+		str = strRootDir+_T("\\priv-app\\");
+		m_priAppsPath = str;
+		if(!FolderExist(m_priAppsPath))
+			CreateFolder(m_priAppsPath);
+		if(str.Right(1) != "\\")
+			str += "\\";
+		filecount_list=1;
+		BrowseCurrentAllFile(str,m_sysApksList);
+		
+		str = strRootDir+_T("\\preinstall\\");
+		m_strAppsPrePath = str;
+		if(!FolderExist(m_strAppsPrePath))
+			CreateFolder(m_strAppsPrePath);
+		if(str.Right(1) != "\\")
+			str += "\\";
+		filecount_list=1;
+		BrowseCurrentAllFile(str,m_preInstApksList);
+
+		str = strRootDir+_T("\\preinstall_del\\");
+		m_strAppsDelPath = str;
+		if(!FolderExist(m_strAppsDelPath))
+			CreateFolder(m_strAppsDelPath);
+		if(str.Right(1) != "\\")
+			str += "\\";
+		filecount_list=1;
+		BrowseCurrentAllFile(str,m_preInstDelApksList);
 	}else{
 		str =strRootDir+_T("\\app\\");
 		m_strAppsPath = str;
 		if(str.Right(1) != "\\")
 			str += "\\";
-	   filecount_list=1;
-	   BrowseCurrentAllFile(str,m_sysApksList);
-
-	   str =strRootDir+_T("\\priv-app\\");
-	   m_strAppsPath = str;
-	   if(str.Right(1) != "\\")
-		   str += "\\";
-	   filecount_list=1;
-	   BrowseCurrentAllFile(str,m_sysApksList);
-
+		filecount_list=1;
+		BrowseCurrentAllFile(str,m_sysApksList);
+		
+		str =strRootDir+_T("\\priv-app\\");
+		m_strAppsPath = str;
+		if(str.Right(1) != "\\")
+			str += "\\";
+		filecount_list=1;
+		BrowseCurrentAllFile(str,m_sysApksList);
+		
 		str = strRootDir+_T("\\preinstall\\");
 		m_strAppsPrePath = str;
 		if(!FolderExist(m_strAppsPrePath))
 			CreateFolder(m_strAppsPrePath);
-
+		
 		if(str.Right(1) != "\\")
 			str += "\\";
-	   filecount_list=1;
-	   BrowseCurrentAllFile(str,m_preInstApksList);
+		filecount_list=1;
+		BrowseCurrentAllFile(str,m_preInstApksList);
 	}    
 }
 
@@ -3319,6 +3476,37 @@ void CTestPluginRangeDlg::OnRclickListPreinstApks(NMHDR* pNMHDR, LRESULT* pResul
     LocalizeMenuCaptions(pPopupMenu);
     
     selectedItemPos = m_preInstApksList.GetFirstSelectedItemPosition();
+    if (selectedItemPos == NULL)
+    {
+        pPopupMenu->RemoveMenu(1, MF_BYPOSITION);
+    }
+    SetForegroundWindow();
+    pPopupMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, Pos.x, Pos.y, this); //弹出菜单
+    *pResult = 0;
+}
+
+void CTestPluginRangeDlg::OnRclickListPreinstDelApks(NMHDR* pNMHDR, LRESULT* pResult) 
+{
+    m_nCurrenListIndex = 3;
+    CMenu Menu;
+    CMenu* pPopupMenu; //菜单指针
+    POSITION selectedItemPos;
+	
+    CPoint Pos;
+    GetCursorPos(&Pos); //取得光标位置
+    if(!Menu.LoadMenu(IDR_MENULIST))
+    {
+        return;
+    }
+    if(!(pPopupMenu = Menu.GetSubMenu(0))) //获取弹出菜单的第一层子菜单的类指针
+    {
+        return;
+    }
+	
+    // localize menu item
+    LocalizeMenuCaptions(pPopupMenu);
+    
+    selectedItemPos = m_preInstDelApksList.GetFirstSelectedItemPosition();
     if (selectedItemPos == NULL)
     {
         pPopupMenu->RemoveMenu(1, MF_BYPOSITION);
@@ -3435,7 +3623,7 @@ void CTestPluginRangeDlg::OnReplaceShutdownAnimation()
             
             DeleteFolder(strShutdownAnimationBasePath);
             ImportAnimation(strShutdownAnimationBasePath, SHUTDOWN_ANIMATION);
-            m_tabLogo.SetCurSel(3);
+            m_tabLogo.SetCurSel(4);
             needDisplayBootanimation =TRUE;
             int timecount=1000/AndroidAnimation.FramesPersecond;//每一帧需要多少秒
             KillTimer(BOOT_ANIMATION_TIMER);
@@ -3700,6 +3888,10 @@ void CTestPluginRangeDlg::InitLogoConfigGroupBox()
     GetDlgItem(BTN_REPLACE_BOOT_ANIMATION)->SetWindowText(strIDName);
     GetDlgItem(BTN_REPLACE_BOOT_ANIMATION)->EnableWindow(FALSE);
 
+	GetPrivateProfileStringW(_T("SystemSeting"),_T("REPLACE_SHUTDOWN_ANIMATION"),_T("REPLACE_SHUTDOWN_ANIMATION"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
+    GetDlgItem(BTN_REPLACE_SHUTDOWN_ANIMATION)->SetWindowText(strIDName);
+    GetDlgItem(BTN_REPLACE_SHUTDOWN_ANIMATION)->EnableWindow(FALSE);
+
    	GetPrivateProfileStringW(_T("SystemSeting"),_T("REPLACE_WALL_PAPER"),_T("REPLACE_WALL_PAPER"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
     GetDlgItem(BTN_REPLACE_DEFAULT_WALLPAPER)->SetWindowText(strIDName);
     GetDlgItem(BTN_REPLACE_DEFAULT_WALLPAPER)->EnableWindow(FALSE);
@@ -3734,6 +3926,9 @@ void CTestPluginRangeDlg::InitLogoConfigGroupBox()
 		m_tabLogo.InsertItem(3,strIDName);
 	}
 
+	GetPrivateProfileStringW(_T("DIALOG_102"),_T("IDC_TAB_LOGO_TAB_4"),_T("IDC_TAB_LOGO_TAB_4"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
+    m_tabLogo.InsertItem(4,strIDName);
+
     strIDName.ReleaseBuffer(MAX_LENGTH);
 
 }
@@ -3748,6 +3943,8 @@ void CTestPluginRangeDlg::InitApkConfigGroupBox()
     m_sysApksList.DeleteAllItems();
     m_preInstApksList.EnableWindow(FALSE);
     m_preInstApksList.DeleteAllItems();
+	m_preInstDelApksList.EnableWindow(FALSE);
+    m_preInstDelApksList.DeleteAllItems();
 
     GetPrivateProfileStringW(_T("DIALOG_102"),_T("IDC_STATIC_APKS_CONFIG"),_T("IDC_STATIC_APKS_CONFIG"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
     GetDlgItem(IDC_STATIC_APKS_CONFIG)->SetWindowText(strIDName);
@@ -3757,7 +3954,8 @@ void CTestPluginRangeDlg::InitApkConfigGroupBox()
     m_tabApks.InsertItem(0,strIDName);
     GetPrivateProfileStringW(_T("DIALOG_102"),_T("IDC_TAB_APK_TAB_1"),_T("IDC_TAB_APK_TAB_1"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
     m_tabApks.InsertItem(1,strIDName);
-    
+	GetPrivateProfileStringW(_T("DIALOG_102"),_T("IDC_TAB_APK_TAB_2"),_T("IDC_TAB_APK_TAB_2"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
+    m_tabApks.InsertItem(2,strIDName);
     //     m_ImageList.Create(32,32,ILC_COLOR32,10,30);
     //     m_sysApksList.SetImageList(&m_ImageList,LVSIL_NORMAL);
     
@@ -3781,6 +3979,15 @@ void CTestPluginRangeDlg::InitApkConfigGroupBox()
     GetPrivateProfileStringW(_T("APKList"),_T("FILE_DATE"),_T("FILE_DATE"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
     m_preInstApksList.InsertColumn(2, strIDName, LVCFMT_LEFT, 100, 2);
     m_preInstApksList.DeleteAllItems();
+
+	m_preInstDelApksList.SetExtendedStyle(dwStyle); //设置扩展风格 
+    GetPrivateProfileStringW(_T("APKList"),_T("FILE_NAME"),_T("FILE_NAME"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
+    m_preInstDelApksList.InsertColumn(0, strIDName, LVCFMT_LEFT, 300, 0);//设置列
+    GetPrivateProfileStringW(_T("APKList"),_T("FILE_SIZE"),_T("FILE_SIZE"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
+    m_preInstDelApksList.InsertColumn(1, strIDName, LVCFMT_LEFT, 100, 1);
+    GetPrivateProfileStringW(_T("APKList"),_T("FILE_DATE"),_T("FILE_DATE"),strIDName.GetBuffer(MAX_LENGTH),MAX_LENGTH,g_strLanguageConfigFilePath);
+    m_preInstDelApksList.InsertColumn(2, strIDName, LVCFMT_LEFT, 100, 2);
+    m_preInstDelApksList.DeleteAllItems();
     
     strIDName.ReleaseBuffer(MAX_LENGTH);
 }
@@ -4244,6 +4451,7 @@ void CTestPluginRangeDlg::DisableUIControls()
     
     ((CButton*)GetDlgItem(BTN_REPLACE_BOOT_LOGO))->EnableWindow(FALSE);
     ((CButton*)GetDlgItem(BTN_REPLACE_BOOT_ANIMATION))->EnableWindow(FALSE);
+	((CButton*)GetDlgItem(BTN_REPLACE_SHUTDOWN_ANIMATION))->EnableWindow(FALSE);
     ((CButton*)GetDlgItem(BTN_REPLACE_DEFAULT_WALLPAPER))->EnableWindow(FALSE);
     ((CButton*)GetDlgItem(BTN_REPLACE_KERNEL_LOGO))->EnableWindow(FALSE);
     ((CButton*)GetDlgItem(BTN_REPLACE_BOOT_RING))->EnableWindow(FALSE);
@@ -4260,6 +4468,7 @@ void CTestPluginRangeDlg::DisableUIControls()
     m_tabApks.EnableWindow(FALSE);
     m_sysApksList.EnableWindow(FALSE);
     m_preInstApksList.EnableWindow(FALSE);
+	m_preInstDelApksList.EnableWindow(FALSE);
 
     m_progressClone.SetPos(0);
 
@@ -4286,6 +4495,7 @@ void CTestPluginRangeDlg::EnableUIControls()
     
     ((CButton*)GetDlgItem(BTN_REPLACE_BOOT_LOGO))->EnableWindow(TRUE);
     ((CButton*)GetDlgItem(BTN_REPLACE_BOOT_ANIMATION))->EnableWindow(TRUE);
+	((CButton*)GetDlgItem(BTN_REPLACE_SHUTDOWN_ANIMATION))->EnableWindow(TRUE);
     ((CButton*)GetDlgItem(BTN_REPLACE_DEFAULT_WALLPAPER))->EnableWindow(TRUE);
     ((CButton*)GetDlgItem(BTN_REPLACE_KERNEL_LOGO))->EnableWindow(TRUE);
     ((CButton*)GetDlgItem(BTN_REPLACE_BOOT_RING))->EnableWindow(TRUE);
@@ -4300,6 +4510,7 @@ void CTestPluginRangeDlg::EnableUIControls()
     m_tabApks.EnableWindow(TRUE);
     m_sysApksList.EnableWindow(TRUE);
     m_preInstApksList.EnableWindow(TRUE);
+	m_preInstDelApksList.EnableWindow(TRUE);
 }
 
 HBRUSH CTestPluginRangeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor) 

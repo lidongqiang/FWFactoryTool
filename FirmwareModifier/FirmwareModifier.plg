@@ -3,234 +3,72 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: FirmwareModifier - Win32 Debug--------------------
+--------------------Configuration: FirmwareModifier - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating command line "rc.exe /l 0x804 /fo"Debug/FirmwareModifier.res" /d "_DEBUG" /d "_AFXDLL" "D:\FW_new\FWFactoryTool\FirmwareModifier\FirmwareModifier.rc"" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP7D.tmp" with contents
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP80.tmp" with contents
 [
-/nologo /MDd /W3 /Gm /GX /ZI /Od /I "cxImage\debug\inc" /I "cmMfcLib" /I "Common\inc" /I "Device\inc" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_USRDLL" /D "_MBCS" /D "FWPLUGIN_EXPORTS" /D "_UNICODE" /D "UNICODE" /D "_WINDLL" /D "_AFXDLL" /FR"Debug/" /Fp"Debug/FirmwareModifier.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Device\cpp\EmAdbDevice.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Device\cpp\EmAdbScanner.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmBase64.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmCharSet.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmCs.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmDiskInfo.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmDllRegister.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmFile.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmFileCache.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmFileInfo.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmGuid.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmHandy.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmMd5.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmMemory.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmOsVersion.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmProcess.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmRes.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmShell.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmStlStr.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmStr.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmSz.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmThread.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmTime.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmTstr.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmTsz.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmUrl.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Device\cpp\EmUsbDevice.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Device\cpp\EmUsbScanner.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmUtil.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmVariantConvert.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmWstr.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\EmWsz.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Common\cpp\tinystr.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\AdbOperator.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\ChargeImage.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\CRC.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\DlgBatteryParam.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\FirmwareModifier.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\KernelLogoTool.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\MySpawnConsumer.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\NotePadBase.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\SysCfgDlg.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\TestPluginRangeDlg.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\unzip.cpp"
-"D:\FW_new\FWFactoryTool\FirmwareModifier\Util.cpp"
+cmMfcLib\cmMfclib.lib /nologo /subsystem:windows /dll /incremental:no /pdb:"..\FirmwarePlatformTool\bin\Plugin/FirmwareModifier.pdb" /machine:I386 /def:".\FirmwareModifier.def" /out:"..\FirmwarePlatformTool\bin\Plugin/FirmwareModifier.dll" /implib:"..\FirmwarePlatformTool\bin\Plugin/FirmwareModifier.lib" /libpath:"cxImage\release\lib" /libpath:"cmMfcLib" 
+.\Release\EmAdbDevice.obj
+.\Release\EmAdbScanner.obj
+.\Release\EmBase64.obj
+.\Release\EmCharSet.obj
+.\Release\EmCs.obj
+.\Release\EmDiskInfo.obj
+.\Release\EmDllRegister.obj
+.\Release\EmFile.obj
+.\Release\EmFileCache.obj
+.\Release\EmFileInfo.obj
+.\Release\EmGuid.obj
+.\Release\EmHandy.obj
+.\Release\EmMd5.obj
+.\Release\EmMemory.obj
+.\Release\EmOsVersion.obj
+.\Release\EmProcess.obj
+.\Release\EmRes.obj
+.\Release\EmShell.obj
+.\Release\EmStlStr.obj
+.\Release\EmStr.obj
+.\Release\EmSz.obj
+.\Release\EmThread.obj
+.\Release\EmTime.obj
+.\Release\EmTstr.obj
+.\Release\EmTsz.obj
+.\Release\EmUrl.obj
+.\Release\EmUsbDevice.obj
+.\Release\EmUsbScanner.obj
+.\Release\EmUtil.obj
+.\Release\EmVariantConvert.obj
+.\Release\EmWstr.obj
+.\Release\EmWsz.obj
+.\Release\tinystr.obj
+.\Release\AdbOperator.obj
+.\Release\ChargeImage.obj
+.\Release\CRC.obj
+.\Release\DlgBatteryParam.obj
+.\Release\FirmwareModifier.obj
+.\Release\KernelLogoTool.obj
+.\Release\MySpawnConsumer.obj
+.\Release\NotePadBase.obj
+.\Release\StdAfx.obj
+.\Release\SysCfgDlg.obj
+.\Release\TestPluginRangeDlg.obj
+.\Release\unzip.obj
+.\Release\Util.obj
+.\Release\FirmwareModifier.res
 ]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP7D.tmp" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP7E.tmp" with contents
-[
-/nologo /MDd /W3 /Gm /GX /ZI /Od /I "cxImage\debug\inc" /I "cmMfcLib" /I "Common\inc" /I "Device\inc" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_USRDLL" /D "_MBCS" /D "FWPLUGIN_EXPORTS" /D "_UNICODE" /D "UNICODE" /D "_WINDLL" /D "_AFXDLL" /FR"Debug/" /Fp"Debug/FirmwareModifier.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\FW_new\FWFactoryTool\FirmwareModifier\StdAfx.cpp"
-]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP7E.tmp" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP7F.tmp" with contents
-[
-/nologo /subsystem:windows /dll /incremental:yes /pdb:"..\FirmwarePlatformTool\bin\Plugin/FirmwareModifier.pdb" /debug /machine:I386 /def:".\FirmwareModifier.def" /out:"..\FirmwarePlatformTool\bin\Plugin/FirmwareModifier.dll" /implib:"..\FirmwarePlatformTool\bin\Plugin/FirmwareModifier.lib" /pdbtype:sept /libpath:"cxImage\debug\lib" /libpath:"cmMfcLib" 
-.\Debug\EmAdbDevice.obj
-.\Debug\EmAdbScanner.obj
-.\Debug\EmBase64.obj
-.\Debug\EmCharSet.obj
-.\Debug\EmCs.obj
-.\Debug\EmDiskInfo.obj
-.\Debug\EmDllRegister.obj
-.\Debug\EmFile.obj
-.\Debug\EmFileCache.obj
-.\Debug\EmFileInfo.obj
-.\Debug\EmGuid.obj
-.\Debug\EmHandy.obj
-.\Debug\EmMd5.obj
-.\Debug\EmMemory.obj
-.\Debug\EmOsVersion.obj
-.\Debug\EmProcess.obj
-.\Debug\EmRes.obj
-.\Debug\EmShell.obj
-.\Debug\EmStlStr.obj
-.\Debug\EmStr.obj
-.\Debug\EmSz.obj
-.\Debug\EmThread.obj
-.\Debug\EmTime.obj
-.\Debug\EmTstr.obj
-.\Debug\EmTsz.obj
-.\Debug\EmUrl.obj
-.\Debug\EmUsbDevice.obj
-.\Debug\EmUsbScanner.obj
-.\Debug\EmUtil.obj
-.\Debug\EmVariantConvert.obj
-.\Debug\EmWstr.obj
-.\Debug\EmWsz.obj
-.\Debug\tinystr.obj
-.\Debug\AdbOperator.obj
-.\Debug\ChargeImage.obj
-.\Debug\CRC.obj
-.\Debug\DlgBatteryParam.obj
-.\Debug\FirmwareModifier.obj
-.\Debug\KernelLogoTool.obj
-.\Debug\MySpawnConsumer.obj
-.\Debug\NotePadBase.obj
-.\Debug\StdAfx.obj
-.\Debug\SysCfgDlg.obj
-.\Debug\TestPluginRangeDlg.obj
-.\Debug\unzip.obj
-.\Debug\Util.obj
-.\Debug\FirmwareModifier.res
-]
-Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP7F.tmp"
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP80.tmp"
 <h3>Output Window</h3>
-Compiling resources...
-Compiling...
-StdAfx.cpp
-Compiling...
-EmAdbDevice.cpp
-EmAdbScanner.cpp
-EmBase64.cpp
-EmCharSet.cpp
-EmCs.cpp
-EmDiskInfo.cpp
-EmDllRegister.cpp
-EmFile.cpp
-EmFileCache.cpp
-EmFileInfo.cpp
-EmGuid.cpp
-EmHandy.cpp
-EmMd5.cpp
-EmMemory.cpp
-EmOsVersion.cpp
-EmProcess.cpp
-EmRes.cpp
-EmShell.cpp
-EmStlStr.cpp
-EmStr.cpp
-Generating Code...
-Compiling...
-EmSz.cpp
-EmThread.cpp
-EmTime.cpp
-EmTstr.cpp
-EmTsz.cpp
-EmUrl.cpp
-EmUsbDevice.cpp
-EmUsbScanner.cpp
-EmUtil.cpp
-EmVariantConvert.cpp
-EmWstr.cpp
-EmWsz.cpp
-tinystr.cpp
-AdbOperator.cpp
-ChargeImage.cpp
-CRC.cpp
-DlgBatteryParam.cpp
-FirmwareModifier.cpp
-KernelLogoTool.cpp
-MySpawnConsumer.cpp
-Generating Code...
-Compiling...
-NotePadBase.cpp
-SysCfgDlg.cpp
-TestPluginRangeDlg.cpp
-D:\FW_new\FWFactoryTool\FirmwareModifier\TestPluginRangeDlg.cpp(891) : warning C4101: 'pos' : unreferenced local variable
-D:\FW_new\FWFactoryTool\FirmwareModifier\TestPluginRangeDlg.cpp(889) : warning C4101: 'n' : unreferenced local variable
-unzip.cpp
-Util.cpp
-Generating Code...
 Linking...
    Creating library ..\FirmwarePlatformTool\bin\Plugin/FirmwareModifier.lib and object ..\FirmwarePlatformTool\bin\Plugin/FirmwareModifier.exp
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP83.tmp" with contents
-[
-/nologo /o"..\FirmwarePlatformTool\bin\Plugin/FirmwareModifier.bsc" 
-.\Debug\StdAfx.sbr
-.\Debug\EmAdbDevice.sbr
-.\Debug\EmAdbScanner.sbr
-.\Debug\EmBase64.sbr
-.\Debug\EmCharSet.sbr
-.\Debug\EmCs.sbr
-.\Debug\EmDiskInfo.sbr
-.\Debug\EmDllRegister.sbr
-.\Debug\EmFile.sbr
-.\Debug\EmFileCache.sbr
-.\Debug\EmFileInfo.sbr
-.\Debug\EmGuid.sbr
-.\Debug\EmHandy.sbr
-.\Debug\EmMd5.sbr
-.\Debug\EmMemory.sbr
-.\Debug\EmOsVersion.sbr
-.\Debug\EmProcess.sbr
-.\Debug\EmRes.sbr
-.\Debug\EmShell.sbr
-.\Debug\EmStlStr.sbr
-.\Debug\EmStr.sbr
-.\Debug\EmSz.sbr
-.\Debug\EmThread.sbr
-.\Debug\EmTime.sbr
-.\Debug\EmTstr.sbr
-.\Debug\EmTsz.sbr
-.\Debug\EmUrl.sbr
-.\Debug\EmUsbDevice.sbr
-.\Debug\EmUsbScanner.sbr
-.\Debug\EmUtil.sbr
-.\Debug\EmVariantConvert.sbr
-.\Debug\EmWstr.sbr
-.\Debug\EmWsz.sbr
-.\Debug\tinystr.sbr
-.\Debug\AdbOperator.sbr
-.\Debug\ChargeImage.sbr
-.\Debug\CRC.sbr
-.\Debug\DlgBatteryParam.sbr
-.\Debug\FirmwareModifier.sbr
-.\Debug\KernelLogoTool.sbr
-.\Debug\MySpawnConsumer.sbr
-.\Debug\NotePadBase.sbr
-.\Debug\SysCfgDlg.sbr
-.\Debug\TestPluginRangeDlg.sbr
-.\Debug\unzip.sbr
-.\Debug\Util.sbr]
-Creating command line "bscmake.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP83.tmp"
-Creating browse info file...
-<h3>Output Window</h3>
+LINK : warning LNK4078: multiple ".rdata" sections found with different attributes (C0000040)
+LINK : warning LNK4089: all references to "SETUPAPI.dll" discarded by /OPT:REF
+LINK : warning LNK4089: all references to "ole32.dll" discarded by /OPT:REF
 
 
 
 <h3>Results</h3>
-FirmwareModifier.dll - 0 error(s), 2 warning(s)
+FirmwareModifier.dll - 0 error(s), 3 warning(s)
 </pre>
 </body>
 </html>

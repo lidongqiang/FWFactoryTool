@@ -29,7 +29,7 @@
 #pragma comment(lib,"cmMfcLib.lib")
 #endif
 #include <sstream>
-#define APP_VERSION	_T(" v5.3")
+#define APP_VERSION	_T(" v5.4")
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

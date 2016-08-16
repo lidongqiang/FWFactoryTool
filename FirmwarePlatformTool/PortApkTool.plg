@@ -1,0 +1,57 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: PortApkTool - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPC.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "cmMfcLib" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_UNICODE" /D "UNICODE" /FR"Release/" /Fp"Release/PortApkTool.pch" /Yu"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\sourcecode\FactoryToolV5.0\FirmwarePlatformTool\AES.cpp"
+"C:\sourcecode\FactoryToolV5.0\FirmwarePlatformTool\KCBusyProgressCtrl.cpp"
+"C:\sourcecode\FactoryToolV5.0\FirmwarePlatformTool\MySpawnConsumer.cpp"
+"C:\sourcecode\FactoryToolV5.0\FirmwarePlatformTool\PortApkTool.cpp"
+"C:\sourcecode\FactoryToolV5.0\FirmwarePlatformTool\PortApkToolDlg.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPC.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPD.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "cmMfcLib" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_UNICODE" /D "UNICODE" /FR"Release/" /Fp"Release/PortApkTool.pch" /Yc"stdafx.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\sourcecode\FactoryToolV5.0\FirmwarePlatformTool\StdAfx.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPD.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE.tmp" with contents
+[
+/nologo /entry:"wWinMainCRTStartup" /subsystem:windows /incremental:no /pdb:"bin/FWFactoryTool.pdb" /machine:I386 /out:"bin/FWFactoryTool.exe" /libpath:"cmMfcLib" 
+.\Release\AES.obj
+.\Release\KCBusyProgressCtrl.obj
+.\Release\MySpawnConsumer.obj
+.\Release\PortApkTool.obj
+.\Release\PortApkToolDlg.obj
+.\Release\StdAfx.obj
+.\Release\PortApkTool.res
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPE.tmp"
+<h3>Output Window</h3>
+Compiling...
+StdAfx.cpp
+Compiling...
+AES.cpp
+KCBusyProgressCtrl.cpp
+MySpawnConsumer.cpp
+PortApkTool.cpp
+PortApkToolDlg.cpp
+C:\sourcecode\FactoryToolV5.0\FirmwarePlatformTool\PortApkToolDlg.cpp(987) : warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+Generating Code...
+Linking...
+LINK : warning LNK4078: multiple ".rdata" sections found with different attributes (C0000040)
+
+
+
+<h3>Results</h3>
+FWFactoryTool.exe - 0 error(s), 2 warning(s)
+</pre>
+</body>
+</html>

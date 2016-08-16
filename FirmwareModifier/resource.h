@@ -53,11 +53,11 @@
 #define BTN_REPLACE_DEFAULT_WALLPAPER   1220
 #define IDC_EDIT_DISCHARGE_7            1220
 #define IDC_EDIT_DISCHARGE_8            1221
+#define BTN_REPLACE_SHUTDOWN_ANIMATION  1221
 #define IDC_EDIT_DISCHARGE_9            1222
 #define IDC_EDIT_DISCHARGE_10           1223
 #define IDC_EDIT_DISCHARGE_11           1224
 #define IDC_GROUP_DISCHARGE             1225
-#define BTN_REPLACE_SHUTDOWN_ANIMATION  1226
 #define IDC_GROUP_CHARGE                1226
 #define BTN_REPLACE_KERNEL_LOGO         1226
 #define IDC_EDIT_CHARGE_1               1227
@@ -114,6 +114,7 @@
 #define IDC_BATTERY_IMAGE3              1273
 #define IDC_BATTERY_IMAGE4              1274
 #define IDC_STATIC_CHARGE               1274
+#define IDC_LIST_PREINST_DEL_APKS       1274
 #define IDC_BATTERY_IMAGE5              1275
 #define IDC_STATIC_VERSION              1275
 #define IDC_BATTERY_IMAGE6              1276
@@ -167,7 +168,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        1109
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1287
+#define _APS_NEXT_CONTROL_VALUE         1291
 #define _APS_NEXT_SYMED_VALUE           1101
 #endif
 #endif

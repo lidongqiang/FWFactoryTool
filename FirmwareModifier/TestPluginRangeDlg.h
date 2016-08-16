@@ -245,6 +245,7 @@ public:
 	CProgressCtrl	m_progressClone;
     CListCtrl	m_sysApksList;
     CListCtrl	m_preInstApksList;
+	CListCtrl	m_preInstDelApksList;
     CTabCtrl	m_tabApks;
     CTabCtrl	m_tabLogo;
 	BOOL	m_chkBlueTooth;
@@ -266,6 +267,7 @@ protected:
     CString m_strAppsPath;
 	CString m_priAppsPath;
 	CString m_strAppsPrePath;
+	CString m_strAppsDelPath;
     //CImageList m_ImageList; //this define for list control
     // Generated message map functions
     //{{AFX_MSG(CTestPluginRangeDlg)
@@ -280,6 +282,7 @@ protected:
     afx_msg void OnReplaceDefaultWallpaper();
     afx_msg void OnSelchangeTabApk(NMHDR* pNMHDR, LRESULT* pResult);
     afx_msg void OnRclickListPreinstApks(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnRclickListPreinstDelApks(NMHDR* pNMHDR, LRESULT* pResult);
     afx_msg void OnRclickListSysApks(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnBtnModifySysConfig();
 	afx_msg void OnReplaceShutdownAnimation();

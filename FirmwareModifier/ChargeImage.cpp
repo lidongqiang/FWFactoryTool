@@ -228,7 +228,7 @@ void CChargeImage::OnInitUI()
 		((CStatic *)GetDlgItem(IDC_STATIC27))->ShowWindow(FALSE);
 	}else{
 
-		if(strAndroidVersion==ANDROID_VERTION_FiVE_ZERO){
+		if(strAndroidVersion==ANDROID_VERTION_FiVE_ZERO||strAndroidVersion==ANDROID_VERTION_SIX_ZERO){
 				for(i=2;i<8;i++)
 					((CButton *)GetDlgItem(IDC_BUTTON20+i))->ShowWindow(FALSE);
 				
@@ -295,6 +295,17 @@ BOOL CChargeImage::OnInitDialog()
 				ButtonDisplayPictrue(BatteryTempImage[i],i);
 			}
 
+		}else if (strAndroidVersion==ANDROID_VERTION_SIX_ZERO){
+			BatteryImage[0]=strSrcChargeImagePath+"battery_scale.png";
+			BatteryImage[1]=strSrcChargeImagePath+"battery_fail.png";
+			BatteryTempImage[0]=strRecoveryChargeImagePath+"\\battery_scale.bmp";
+			BatteryTempImage[1]=strRecoveryChargeImagePath+"\\battery_fail.bmp";
+			
+			for(i=0;i<2;i++)
+			{
+				ConvertToBmp(BatteryImage[i],BatteryTempImage[i]);
+				ButtonDisplayPictrue(BatteryTempImage[i],i);
+			}
 		}else{
 			BatteryImage[0]=strSrcChargeImagePath+"battery_0.png";
 			BatteryImage[1]=strSrcChargeImagePath+"battery_1.png";
@@ -323,7 +334,6 @@ BOOL CChargeImage::OnInitDialog()
 		}	
 		
 	}
-	
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -373,7 +383,7 @@ void CChargeImage::OnBatteryButton1()
 		strBatterySrcpath=strUbootChargeImagePath+"\\battery_0.bmp";
 		strBatteryBmppath=strUbootChargeImagePath+"\\battery_0.bmp";
 	}else{
-		if(strAndroidVersion==ANDROID_VERTION_FiVE_ZERO){
+		if(strAndroidVersion==ANDROID_VERTION_FiVE_ZERO||strAndroidVersion==ANDROID_VERTION_SIX_ZERO){
 			strBatterySrcpath=strSrcChargeImagePath+"battery_scale.png";
 			strBatteryBmppath=strRecoveryChargeImagePath+"\\battery_scale.bmp";	
 		}else{
@@ -653,7 +663,16 @@ void CChargeImage::OnRadio2()
 			ButtonDisplayPictrue(BatteryImage[i],i);
 		}
 
-	}else{
+	}else if (strAndroidVersion==ANDROID_VERTION_SIX_ZERO){
+		BatteryImage[0]=strRecoveryChargeImagePath+"\\battery_scale.bmp";
+		BatteryImage[1]=strRecoveryChargeImagePath+"\\battery_fail.bmp";
+		
+		for(i=0;i<2;i++)
+		{
+			ButtonDisplayPictrue(BatteryImage[i],i);
+		}
+	}
+	else{
 		BatteryImage[0]=strRecoveryChargeImagePath+"\\battery_0.bmp";
 		BatteryImage[1]=strRecoveryChargeImagePath+"\\battery_1.bmp";
 		BatteryImage[2]=strRecoveryChargeImagePath+"\\battery_2.bmp";
